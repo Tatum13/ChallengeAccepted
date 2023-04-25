@@ -1,24 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputParse : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
+    
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlAction;
-
-    [SerializeField] private PlayerMovement playerMovement;
-
+    
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
         _playerControlAction = _playerInput.actions;
     }
-    void Update()
+    
+    private void Update()
     {
-        playerMovement.MovementPlayer(_playerControlAction["Movement"].ReadValue<Vector2>());
+        var inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();
+        playerMovement.MovementPlayer(inputMovement);
     }
 }
