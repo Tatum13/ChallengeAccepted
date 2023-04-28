@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class InputParse : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private CameraController cameraController;
     
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlAction;

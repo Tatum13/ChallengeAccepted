@@ -370,13 +370,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943129766}
-  m_LocalRotation: {x: 0.16738991, y: 0.000000021060087, z: -0.0000000035756964, w: 0.9858908}
-  m_LocalPosition: {x: 0, y: 2.6799998, z: -4.29}
+  m_LocalRotation: {x: 0.16738991, y: -0.000000014690921, z: 0.0000000024943039, w: 0.9858908}
+  m_LocalPosition: {x: 0, y: 1.4999999, z: -4.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1408446364}
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1154016743}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -455,7 +455,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.16738991, y: 0.000000021060087, z: -0.0000000035756964, w: 0.9858908}
+  m_LocalRotation: {x: 0.16738991, y: -0.000000014690921, z: 0.0000000024943039, w: 0.9858908}
   m_LocalPosition: {x: 0, y: 2.6799998, z: -4.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -610,6 +610,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 115470839}
+  - {fileID: 943129768}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -626,6 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 1154016746}
+  cameraController: {fileID: 0}
 --- !u!114 &1154016745
 MonoBehaviour:
   m_ObjectHideFlags: 0
