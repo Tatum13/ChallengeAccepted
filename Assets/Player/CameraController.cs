@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
 
     public void MoveCamera(float inputCamera)
     {
-        if (inputCamera == 1)
+        if (1 == Mathf.RoundToInt(inputCamera))
         {
             cinemachineFreeLook.m_XAxis.m_MaxSpeed = cameraXSpeed;
             cinemachineFreeLook.m_YAxis.m_MaxSpeed = cameraYSpeed;
