@@ -35,6 +35,15 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MouseClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""604751f1-8601-437b-98ba-efcebb1e407c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e34cefed-8885-4adb-8073-bfe825922ff6"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -104,15 +124,6 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""type"": ""PassThrough"",
                     ""id"": ""f2256f7b-6814-45be-973b-ad31f31559af"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MouseClick"",
-                    ""type"": ""Button"",
-                    ""id"": ""6c6d0196-03ed-4d4b-abe4-8bb839e0e23f"",
-                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -129,17 +140,6 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                     ""action"": ""MouseLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e8cb6d1e-cb26-4ed7-bfbd-3e5bcc47382e"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MouseClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -149,10 +149,10 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
         // Inputs
         m_Inputs = asset.FindActionMap("Inputs", throwIfNotFound: true);
         m_Inputs_Movement = m_Inputs.FindAction("Movement", throwIfNotFound: true);
+        m_Inputs_MouseClick = m_Inputs.FindAction("MouseClick", throwIfNotFound: true);
         // Mouse
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_MouseLook = m_Mouse.FindAction("MouseLook", throwIfNotFound: true);
-        m_Mouse_MouseClick = m_Mouse.FindAction("MouseClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -213,11 +213,13 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Inputs;
     private IInputsActions m_InputsActionsCallbackInterface;
     private readonly InputAction m_Inputs_Movement;
+    private readonly InputAction m_Inputs_MouseClick;
     public struct InputsActions
     {
         private @InputControls m_Wrapper;
         public InputsActions(@InputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Inputs_Movement;
+        public InputAction @MouseClick => m_Wrapper.m_Inputs_MouseClick;
         public InputActionMap Get() { return m_Wrapper.m_Inputs; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +232,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_InputsActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_InputsActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_InputsActionsCallbackInterface.OnMovement;
+                @MouseClick.started -= m_Wrapper.m_InputsActionsCallbackInterface.OnMouseClick;
+                @MouseClick.performed -= m_Wrapper.m_InputsActionsCallbackInterface.OnMouseClick;
+                @MouseClick.canceled -= m_Wrapper.m_InputsActionsCallbackInterface.OnMouseClick;
             }
             m_Wrapper.m_InputsActionsCallbackInterface = instance;
             if (instance != null)
@@ -237,6 +242,9 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @MouseClick.started += instance.OnMouseClick;
+                @MouseClick.performed += instance.OnMouseClick;
+                @MouseClick.canceled += instance.OnMouseClick;
             }
         }
     }
@@ -246,13 +254,11 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Mouse;
     private IMouseActions m_MouseActionsCallbackInterface;
     private readonly InputAction m_Mouse_MouseLook;
-    private readonly InputAction m_Mouse_MouseClick;
     public struct MouseActions
     {
         private @InputControls m_Wrapper;
         public MouseActions(@InputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @MouseLook => m_Wrapper.m_Mouse_MouseLook;
-        public InputAction @MouseClick => m_Wrapper.m_Mouse_MouseClick;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -265,9 +271,6 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @MouseLook.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseLook;
                 @MouseLook.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseLook;
                 @MouseLook.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseLook;
-                @MouseClick.started -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
-                @MouseClick.performed -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
-                @MouseClick.canceled -= m_Wrapper.m_MouseActionsCallbackInterface.OnMouseClick;
             }
             m_Wrapper.m_MouseActionsCallbackInterface = instance;
             if (instance != null)
@@ -275,9 +278,6 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
                 @MouseLook.started += instance.OnMouseLook;
                 @MouseLook.performed += instance.OnMouseLook;
                 @MouseLook.canceled += instance.OnMouseLook;
-                @MouseClick.started += instance.OnMouseClick;
-                @MouseClick.performed += instance.OnMouseClick;
-                @MouseClick.canceled += instance.OnMouseClick;
             }
         }
     }
@@ -285,10 +285,10 @@ public partial class @InputControls : IInputActionCollection2, IDisposable
     public interface IInputsActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnMouseClick(InputAction.CallbackContext context);
     }
     public interface IMouseActions
     {
         void OnMouseLook(InputAction.CallbackContext context);
-        void OnMouseClick(InputAction.CallbackContext context);
     }
 }

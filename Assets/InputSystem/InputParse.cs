@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,11 +6,10 @@ public class InputParse : MonoBehaviour
 {
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private CameraController cameraController;
-    
+
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlAction;
-    private Vector2 _mouseposition = new Vector2(0,0);
-    
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -22,8 +22,6 @@ public class InputParse : MonoBehaviour
         playerMovement.MovementPlayer(inputMovement);
 
         var inputCamera = _playerControlAction["MouseClick"].ReadValue<float>();
-        if (inputCamera == 1) return;
-        //_playerControlAction["MouseLook"].;
-        cameraController.MoveCamera();
+        cameraController.MoveCamera(inputCamera);
     }
 }
