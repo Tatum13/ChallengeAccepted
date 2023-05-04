@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Rigidbody playerRigidbody;
     [SerializeField] private float speed;
     [SerializeField] private float rotateSpeed;
     
@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (input == Vector2.zero) return;
         
-        var input3D = new Vector3(input.x, rigidbody.velocity.y / speed, input.y);
-        rigidbody.velocity = input3D * speed;
+        var input3D = new Vector3(input.x, playerRigidbody.velocity.y / speed, input.y);
+        playerRigidbody.velocity = input3D * speed;
         
         var rotateTarget = new Vector3(input.x, 0, input.y);
         var rotateDirection = Vector3.RotateTowards(transform.forward, rotateTarget, rotateSpeed * Time.deltaTime, 1);
