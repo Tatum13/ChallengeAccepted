@@ -23,5 +23,7 @@ public class InputParse : MonoBehaviour
 
         var inputCamera = _playerControlAction["MouseClick"].ReadValue<float>();
         cameraController.MoveCamera(inputCamera);
+        if (inputCamera == 1f) playerMovement.TurnToCameraDirection();
+        else playerMovement.IsRotatingCamera = false;
     }
 }
