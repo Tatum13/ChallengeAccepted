@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -16,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
         set => _isRotatingCamera = value;
     }
 
-    public void MovementPlayer(Vector2 input)
+    public void Movement(Vector2 input)
     {
         if (input == Vector2.zero) return;
         
@@ -27,12 +28,35 @@ public class PlayerMovement : MonoBehaviour
         playerRigidbody.velocity = transform.forward * velocity.z + transform.right * velocity.x;
         //transform.localPosition
         if(_isRotatingCamera) return;
+        RotatePlayer(input);
+        //MovementRotation(input);
+    }
+
+    private void RotatePlayer(Vector2 input)
+    {
         /*
-        var rotateTarget = new Vector3(input.x, 0, input.y);
-        var rotateDirection = Vector3.RotateTowards(transform.forward, rotateTarget, rotateSpeed * Time.deltaTime, 1);
-        transform.rotation = Quaternion.LookRotation(rotateDirection);
+        var moveDirection = playerRigidbody.velocity - transform.position;
+        var playerLookAtPosition = new Vector3(input.x, 0, input.y).normalized;
+        var directionLookRotation = transform.rotation * playerLookAtPosition;
+        var newRotation = Quaternion.LookRotation(directionLookRotation, transform.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 0.15f);
         */
         
+        /*
+        var moveDirection = playerRigidbody.velocity - transform.position;
+        transform.rotation = Quaternion.LookRotation(moveDirection);
+        */
+        
+        var moveDirection = transform.TransformDirection(Vector3.forward);
+        transform.rotation = Quaternion.LookRotation(moveDirection);
+        Debug.DrawRay(transform.position, moveDirection);
+    }
+
+    private void MovementRotation(Vector2 input)
+    {
+        var rotateTarget = new Vector3(input.x, 0, input.y);
+        var rotateDirection = Vector3.RotateTowards(transform.position, rotateTarget, rotateSpeed * Time.deltaTime, 1);
+        transform.rotation = Quaternion.LookRotation(rotateDirection);
     }
 
     public void TurnToCameraDirection()
@@ -44,11 +68,5 @@ public class PlayerMovement : MonoBehaviour
         rotateDirection.x = beginPosition.x;
         rotateDirection.z = beginPosition.z;
         transform.rotation = rotateDirection;
-        /*
-        var rotateDirection = Vector3.RotateTowards(beginPosition, new Vector3(0,targetToRotate.y,0), rotateSpeed * Time.deltaTime, 1);
-        transform.rotation = Quaternion.LookRotation(rotateDirection);
-        Debug.Log("Begin " + beginPosition);
-        Debug.Log("Target " + targetToRotate);
-        */
     }
 }

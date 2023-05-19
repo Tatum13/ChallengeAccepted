@@ -19,7 +19,7 @@ public class InputParse : MonoBehaviour
     private void Update()
     {
         var inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();
-        playerMovement.MovementPlayer(inputMovement);
+        playerMovement.Movement(inputMovement);
 
         var inputCamera = _playerControlAction["MouseClick"].ReadValue<float>();
         cameraController.MoveCamera(inputCamera);
