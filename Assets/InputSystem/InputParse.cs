@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +8,8 @@ public class InputParse : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private CameraController cameraController;
 
+    [SerializeField] private float rotateSpeed;
+
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlAction;
 
@@ -15,7 +18,7 @@ public class InputParse : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _playerControlAction = _playerInput.actions;
     }
-    
+
     private void Update()
     {
         var inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();

@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool _isRotatingCamera;
 
+    private Vector2 _oldInput;
+    private Vector3 _directionLookRotation;
+
     public bool IsRotatingCamera
     {
         get => _isRotatingCamera;
@@ -19,8 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Movement(Vector2 input)
     {
-        if (input == Vector2.zero) return;
-        
         var input3D = new Vector3(input.x, playerRigidbody.velocity.y / speed, input.y);
         //playerRigidbody.velocity = input3D * speed;
         //playerRigidbody.MovePosition(transform.position + (input3D.normalized * speed * Time.deltaTime));
@@ -34,22 +35,35 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotatePlayer(Vector2 input)
     {
+        if (_oldInput != input)
+        {
+            var playerLookAtPosition = new Vector3(input.x, 0, 0).normalized;
+            _directionLookRotation = playerRigidbody.gameObject.transform.rotation * playerLookAtPosition;
+        }
+
+        //var moveDirection = playerRigidbody.velocity - transform.position;
+        var newRotation = Quaternion.LookRotation(_directionLookRotation, transform.up);
+        playerRigidbody.gameObject.transform.rotation = Quaternion.Slerp(playerRigidbody.gameObject.transform.rotation, newRotation, 0.15f);
+        
+        _oldInput = input;
+        
         /*
-        var moveDirection = playerRigidbody.velocity - transform.position;
         var playerLookAtPosition = new Vector3(input.x, 0, input.y).normalized;
         var directionLookRotation = transform.rotation * playerLookAtPosition;
         var newRotation = Quaternion.LookRotation(directionLookRotation, transform.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 0.15f);
         */
-        
+        //Debug.Log(input);
         /*
         var moveDirection = playerRigidbody.velocity - transform.position;
-        transform.rotation = Quaternion.LookRotation(moveDirection);
+        transform.rotation = Quaternion.Loo kRotation(moveDirection);
         */
         
+        /*
         var moveDirection = transform.TransformDirection(Vector3.forward);
         transform.rotation = Quaternion.LookRotation(moveDirection);
         Debug.DrawRay(transform.position, moveDirection);
+        */
     }
 
     private void MovementRotation(Vector2 input)
@@ -62,11 +76,11 @@ public class PlayerMovement : MonoBehaviour
     public void TurnToCameraDirection()
     {
         _isRotatingCamera = true;
-        var beginPosition = transform.rotation;
+        var beginPosition = playerRigidbody.gameObject.transform.rotation;
         var targetToRotate = cameraTransform.rotation;
         var rotateDirection = Quaternion.Lerp(beginPosition, targetToRotate, rotateSpeed * Time.deltaTime);
         rotateDirection.x = beginPosition.x;
         rotateDirection.z = beginPosition.z;
-        transform.rotation = rotateDirection;
+        playerRigidbody.gameObject.transform.rotation = rotateDirection;
     }
 }
