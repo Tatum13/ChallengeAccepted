@@ -22,17 +22,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void Movement(Vector2 input)
     {
-        var input3D = new Vector3(input.x, playerRigidbody.velocity.y / speed, input.y);
-        //playerRigidbody.velocity = input3D * speed;
-        //playerRigidbody.MovePosition(transform.position + (input3D.normalized * speed * Time.deltaTime));
+        
+        var input3D = new Vector3(input.x, 0, input.y);
         var velocity = input3D * speed;
-        playerRigidbody.velocity = transform.forward * velocity.z + transform.right * velocity.x;
-        //transform.localPosition
+        playerRigidbody.velocity = velocity;
         if(_isRotatingCamera) return;
         RotatePlayer(input);
-        //MovementRotation(input);
     }
 
+    public void LookAtDirection()
+    {
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRigidbody.velocity), 0.15f);
+    }
+    
     private void RotatePlayer(Vector2 input)
     {
         if (_oldInput != input)

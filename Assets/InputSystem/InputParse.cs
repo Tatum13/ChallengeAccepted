@@ -18,15 +18,14 @@ public class InputParse : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _playerControlAction = _playerInput.actions;
     }
-
-    private void Update()
+    private void FixedUpdate()
     {
         var inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();
         playerMovement.Movement(inputMovement);
 
         var inputCamera = _playerControlAction["MouseClick"].ReadValue<float>();
         cameraController.MoveCamera(inputCamera);
-        if (inputCamera == 1f) playerMovement.TurnToCameraDirection();
+        if (inputCamera == 1f) playerMovement.LookAtDirection();
         else playerMovement.IsRotatingCamera = false;
     }
 }
