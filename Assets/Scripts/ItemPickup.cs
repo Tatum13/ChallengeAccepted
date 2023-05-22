@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private PickupSystem _pickupSystem;
-    [field: SerializeField] public ItemType ItemType { get; private set; } 
+    public ItemType ItemType;
     
     private bool _isPickedUp;
     

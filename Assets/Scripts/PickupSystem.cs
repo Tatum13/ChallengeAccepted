@@ -8,8 +8,9 @@ public class PickupSystem : MonoBehaviour
     
     private Dictionary<ItemType, int> _itemStorage = new Dictionary<ItemType, int>();
 
-    private bool AddItem()
+    private void AddItem(ItemPickup pickup)
     {
-        return true;
+        
+        return;
     }
 }
