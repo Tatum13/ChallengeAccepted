@@ -13,6 +13,9 @@ public class InputParse : MonoBehaviour
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlAction;
 
+    [SerializeField] private MarksPoging marksPoging;
+    private Vector3 inputMovement;
+
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
@@ -20,12 +23,20 @@ public class InputParse : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();
+        var input3D = new Vector3(inputMovement.x, 0, inputMovement.y);
+        
+        if(input3D == Vector3.zero) return;
+        marksPoging.MovePlayer(input3D);
+        /*
         var inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();
         playerMovement.Movement(inputMovement);
-
+        */
         var inputCamera = _playerControlAction["MouseClick"].ReadValue<float>();
-        cameraController.MoveCamera(inputCamera);
+        //cameraController.MoveCamera(inputCamera);
+        /*
         if (inputCamera == 1f) playerMovement.LookAtDirection();
         else playerMovement.IsRotatingCamera = false;
+        */
     }
 }
