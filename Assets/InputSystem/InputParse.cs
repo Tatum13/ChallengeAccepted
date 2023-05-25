@@ -13,7 +13,7 @@ public class InputParse : MonoBehaviour
     private PlayerInput _playerInput;
     private InputActionAsset _playerControlAction;
 
-    [SerializeField] private MarksPoging marksPoging;
+    [SerializeField] private MovementPlayer movementPlayer;
     private Vector3 inputMovement;
 
     private void Awake()
@@ -27,12 +27,15 @@ public class InputParse : MonoBehaviour
         var input3D = new Vector3(inputMovement.x, 0, inputMovement.y);
         
         if(input3D == Vector3.zero) return;
-        marksPoging.MovePlayer(input3D);
+        movementPlayer.MovePlayer(input3D);
         /*
         var inputMovement = _playerControlAction["Movement"].ReadValue<Vector2>();
         playerMovement.Movement(inputMovement);
         */
-        var inputCamera = _playerControlAction["MouseClick"].ReadValue<float>();
+        
+        var inputCamera = _playerControlAction["MouseLook"].ReadValue<Vector2>();
+        Debug.Log(inputCamera);
+        
         //cameraController.MoveCamera(inputCamera);
         /*
         if (inputCamera == 1f) playerMovement.LookAtDirection();
