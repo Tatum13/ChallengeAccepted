@@ -6,12 +6,12 @@ using UnityEngine;
 public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private PickupSystem _pickupSystem;
-    public ItemType ItemType;
-    
-    private bool _isPickedUp;
-    
+    [field: SerializeField] public ItemType ItemType {get; private set;}
+
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject != _pickupSystem.playerBody || _isPickedUp) return;
+        if(collision.gameObject != _pickupSystem.playerBody) return;
+        _pickupSystem.AddItem(this);
+        Destroy(gameObject);
     }
 }

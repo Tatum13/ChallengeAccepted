@@ -1,6 +1,7 @@
 public enum ItemType
 {
+    other,
     keyYellow,
     keyBlue,
-    KeyGreen
+    keyGreen
 }

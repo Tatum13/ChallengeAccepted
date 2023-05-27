@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +6,16 @@ public class PickupSystem : MonoBehaviour
     public GameObject playerBody;
     
     private Dictionary<ItemType, int> _itemStorage = new Dictionary<ItemType, int>();
-
-    private void AddItem(ItemPickup pickup)
+    
+    public void AddItem(ItemPickup pickup)
     {
-        
-        return;
+        if (_itemStorage.ContainsKey(pickup.ItemType)) _itemStorage[pickup.ItemType] += 1;
+        else _itemStorage[pickup.ItemType] = 1;
+    }
+
+    public void DeleteItem(ItemPickup pickup)
+    {
+        if(_itemStorage[pickup.ItemType] == 0) return;
+        _itemStorage[pickup.ItemType]--;
     }
 }
