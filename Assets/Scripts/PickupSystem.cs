@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupSystem : MonoBehaviour
+public sealed class PickupSystem : MonoBehaviour
 {
     public GameObject playerBody;
     

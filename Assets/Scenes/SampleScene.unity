@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickupSystem: {fileID: 1154016748}
-  ItemType: 2
+  <ItemType>k__BackingField: 2
 --- !u!1 &629264722
 GameObject:
   m_ObjectHideFlags: 3
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pickupSystem: {fileID: 1154016748}
-  ItemType: 1
+  <ItemType>k__BackingField: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1836,7 +1836,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108654424}
-  m_LocalRotation: {x: -0.05433213, y: 0.0000000039909707, z: -0.0000000011562863, w: 0.9985229}
+  m_LocalRotation: {x: -0.05433213, y: 0.000000037044412, z: -0.000000010732717, w: 0.9985229}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
