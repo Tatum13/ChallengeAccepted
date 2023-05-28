@@ -13,9 +13,9 @@ public sealed class PickupSystem : MonoBehaviour
         else _itemStorage[pickup.ItemType] = 1;
     }
 
-    public void DeleteItem(ItemPickup pickup)
+    public void DeleteItem(ItemType itemType)
     {
-        if(_itemStorage[pickup.ItemType] == 0) return;
-        _itemStorage[pickup.ItemType]--;
+        if(_itemStorage[itemType] == 0) return;
+        _itemStorage[itemType]--;
     }
 }
